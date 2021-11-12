@@ -1,2 +1,2 @@
 # spotify-zero-mix
-spotify-zero-mix
+spotify zero mix
