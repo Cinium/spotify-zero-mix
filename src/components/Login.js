@@ -6,7 +6,8 @@ import { beginLogin } from '../auth/auth';
 
 function Login() {
 	const CLIENT_ID = '6f24e1aa19004f7cab42054a136c6efb';
-	const REDIRECT_URI = `http://localhost:3000/callback`;
+	// const REDIRECT_URI = `http://localhost:3000/callback`;
+	const REDIRECT_URI = `https://cinium.github.io/spotify-zero-mix/callback`;
 	const AUTHORIZE_ENDPOINT = 'https://accounts.spotify.com/authorize';
 	const SCOPES = ['playlist-read-private', 'playlist-modify-private'];
 

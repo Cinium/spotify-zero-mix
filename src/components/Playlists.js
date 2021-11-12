@@ -1,10 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import spotifyApi from '../utils/spotifyApi';
 import Player from './Player/Player';
 
 export default function Playlists() {
-	const navigate = useNavigate();
 	const [dailyMixes, setDailyMixes] = useState([]);
 	const [tracks, setTracks] = useState([]);
 	const [token, setToken] = useState({});
@@ -34,11 +32,6 @@ export default function Playlists() {
 	useEffect(() => {
 		fillNewPlaylist();
 	}, [newPlaylist]);
-
-	async function startCreatingPlaylist() {
-		await createPlaylist();
-		// await getTracks();
-	}
 
 	async function getDailies() {
 		const playlists = await spotifyApi.getPlaylists();
