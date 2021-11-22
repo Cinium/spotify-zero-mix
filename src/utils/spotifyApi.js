@@ -25,11 +25,13 @@ class SpotifyApi {
 		return items;
 	}
 
-	async getPlaylistItems(playlist_id) {
+	async getPlaylistItems(playlist_id, offset) {
 		const token = this.getTokenFromLocal();
 
 		const res = await fetch(
-			`${this.base_url}/v1/playlists/${playlist_id}/tracks`,
+			`${this.base_url}/v1/playlists/${playlist_id}/tracks${
+				offset ? `?offset=${offset}&limit=100` : ''
+			}`,
 			{
 				method: 'GET',
 				headers: {
@@ -38,8 +40,7 @@ class SpotifyApi {
 			}
 		);
 		const json = await res.json();
-		const items = await json.items;
-		return items;
+		return json;
 	}
 
 	async getUserInfo() {
@@ -88,6 +89,26 @@ class SpotifyApi {
 				body: JSON.stringify({
 					uris,
 					position: 0,
+				}),
+			}
+		);
+		const json = res.json();
+		return json;
+	}
+
+	async deleteItemsFromPlaylist(playlist_id, tracks) {
+		const token = this.getTokenFromLocal();
+
+		const res = await fetch(
+			`${this.base_url}/v1/playlists/${playlist_id}/tracks`,
+			{
+				method: 'DELETE',
+				headers: {
+					Authorization: `${token.token_type} ${token.access_token}`,
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({
+					tracks,
 				}),
 			}
 		);

@@ -1,0 +1,29 @@
+.navbar {
+	list-style: none;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	grid-template-columns: 4fr;
+	margin: 0 auto;
+	width: 90vw;
+}
+
+.navbar__item {
+	width: 6rem;
+}
+
+.navbar__link {
+	color: black;
+	text-decoration: none;
+	border-radius: 30px;
+	transition: all .3s;
+	transition: padding .3s;
+	padding: 3px 0 6px;
+}
+
+.navbar__link:hover {
+	padding: 3px 12px 6px;
+	background-color: #EADDFF;
+}
+

@@ -1,0 +1,30 @@
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 10% 2rem;
+	margin: 1rem auto 2rem;
+	font-weight: 600;
+	font-size: 3vh;
+	box-shadow: 0 4px 10px -8px black;
+}
+
+.header__avatar {
+	width: 3rem;
+	height: 3rem;
+	background-color: #EFB8C8;
+	color: #31111D;
+	border-radius: 50%;
+	text-align: center;
+	font-weight: 500;
+	font-size: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+.header__user-pic {
+	width: 3rem;
+	height: 3rem;
+	border-radius: 50%;
+	margin-left: 50px;
+}
