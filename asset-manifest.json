@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/spotify-zero-mix/static/css/main.bf00ef55.chunk.css",
-    "main.js": "/spotify-zero-mix/static/js/main.cf0ccd62.chunk.js",
-    "main.js.map": "/spotify-zero-mix/static/js/main.cf0ccd62.chunk.js.map",
+    "main.js": "/spotify-zero-mix/static/js/main.07357036.chunk.js",
+    "main.js.map": "/spotify-zero-mix/static/js/main.07357036.chunk.js.map",
     "runtime-main.js": "/spotify-zero-mix/static/js/runtime-main.b67c1711.js",
     "runtime-main.js.map": "/spotify-zero-mix/static/js/runtime-main.b67c1711.js.map",
     "static/js/2.c67ff493.chunk.js": "/spotify-zero-mix/static/js/2.c67ff493.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.b67c1711.js",
     "static/js/2.c67ff493.chunk.js",
     "static/css/main.bf00ef55.chunk.css",
-    "static/js/main.cf0ccd62.chunk.js"
+    "static/js/main.07357036.chunk.js"
   ]
 }
