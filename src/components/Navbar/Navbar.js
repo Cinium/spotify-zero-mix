@@ -7,12 +7,9 @@ function Navbar() {
 			<li className="navbar__item">
 				<NavLink
 					to="/about"
-					className="navbar__link"
-					style={({ isActive }) => ({
-						fontWeight: isActive ? '500' : '400',
-						backgroundColor: isActive ? '#D0BCFF' : '',
-						padding: isActive ? '3px 12px 6px' : ''
-					})}
+					className={({ isActive }) =>
+						'navbar__link' + (isActive ? ' navbar__link_active' : '')
+					}
 				>
 					About
 				</NavLink>
@@ -20,12 +17,9 @@ function Navbar() {
 			<li className="navbar__item">
 				<NavLink
 					to="/"
-					className="navbar__link"
-					style={({ isActive }) => ({
-						fontWeight: isActive ? '500' : '400',
-						backgroundColor: isActive ? '#D0BCFF' : '',
-						padding: isActive ? '3px 12px 6px' : ''
-					})}
+					className={({ isActive }) =>
+						'navbar__link' + (isActive ? ' navbar__link_active' : '')
+					}
 				>
 					Login
 				</NavLink>
@@ -33,17 +27,13 @@ function Navbar() {
 			<li className="navbar__item">
 				<NavLink
 					to="/playlists"
-					className="navbar__link"
-					style={({ isActive }) => ({
-						fontWeight: isActive ? '500' : '400',
-						backgroundColor: isActive ? '#D0BCFF' : '',
-						padding: isActive ? '3px 12px 6px' : ''
-					})}
+					className={({ isActive }) =>
+						'navbar__link' + (isActive ? ' navbar__link_active' : '')
+					}
 				>
 					Generate
 				</NavLink>
 			</li>
-			
 		</ul>
 	);
 }
