@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/spotify-zero-mix/static/css/main.8e7b4e2f.chunk.css",
+    "main.css": "/spotify-zero-mix/static/css/main.a1f91a9e.chunk.css",
     "main.js": "/spotify-zero-mix/static/js/main.1d65b20d.chunk.js",
     "main.js.map": "/spotify-zero-mix/static/js/main.1d65b20d.chunk.js.map",
     "runtime-main.js": "/spotify-zero-mix/static/js/runtime-main.ab3d31a6.js",
@@ -10,13 +10,13 @@
     "static/js/3.433747f9.chunk.js": "/spotify-zero-mix/static/js/3.433747f9.chunk.js",
     "static/js/3.433747f9.chunk.js.map": "/spotify-zero-mix/static/js/3.433747f9.chunk.js.map",
     "index.html": "/spotify-zero-mix/index.html",
-    "static/css/main.8e7b4e2f.chunk.css.map": "/spotify-zero-mix/static/css/main.8e7b4e2f.chunk.css.map",
+    "static/css/main.a1f91a9e.chunk.css.map": "/spotify-zero-mix/static/css/main.a1f91a9e.chunk.css.map",
     "static/js/2.a5f9df1f.chunk.js.LICENSE.txt": "/spotify-zero-mix/static/js/2.a5f9df1f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ab3d31a6.js",
     "static/js/2.a5f9df1f.chunk.js",
-    "static/css/main.8e7b4e2f.chunk.css",
+    "static/css/main.a1f91a9e.chunk.css",
     "static/js/main.1d65b20d.chunk.js"
   ]
 }
