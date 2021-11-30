@@ -1,0 +1,9 @@
+.login {
+}
+
+.login__button {
+	position: absolute;
+	transform: translateX(-50%);
+	left: 50%;
+	bottom: 140px;
+}

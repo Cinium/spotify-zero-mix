@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import auth from '../../auth/auth';
-import { setIsLoading } from '../../redux/actions/appActions';
-import {
-	setDailyMixes,
-	setTracksFromDailies,
-} from '../../redux/actions/playlistsActions';
+import { setIsLoading, setSuccessMessage } from '../../redux/actions/appActions';
 import spotifyApi from '../../utils/spotifyApi';
 import Spinner from '../Spinner/Spinner';
 import './Playlists.css';
@@ -12,96 +8,121 @@ import './Playlists.css';
 export default function Playlists() {
 	const user = useSelector(state => state.user);
 	const isLoading = useSelector(state => state.app.isLoading);
+	const success = useSelector(state => state.app.successMessage);
 	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	if (Object.keys(user).length !== 0 && user.constructor === Object)
-	// 		getDailies();
-	// }, [user]);
+	async function handleGenerate() {
+		if (checkIfTokenExpired()) auth.login();
 
-	// useEffect(() => {
-	// 	getTracks();
-	// }, [dailyMixes]);
+		dispatch(setIsLoading(true));
+		try {
+			const playlists = await getDailies();
+			const tracks = await getTracks(playlists);
+			const existingZeroMix = playlists.find(
+				item => item.name === 'Микс дня #0'
+			);
 
-	// useEffect(() => {
-	// 	createPlaylist();
-	// }, [tracks]);
+			if (existingZeroMix) {
+				await clearPlaylist(existingZeroMix.id);
+				fillPlaylist(existingZeroMix, tracks);
+			} else {
+				const newPlaylist = await createPlaylist();
+				fillPlaylist(newPlaylist, tracks);
+			}
 
-	// useEffect(() => {
-	// 	fillNewPlaylist(newDailyMix);
-	// }, [newDailyMix]);
+			dispatch(setSuccessMessage(true))
+		} catch (e) {
+			console.log(e);
+		} finally {
+			dispatch(setIsLoading(false));
+		}
+	}
 
 	async function getDailies() {
-		const playlists = await spotifyApi.getPlaylists();
-		const filteredPlaylists = filterPlaylists(playlists);
-		dispatch(setDailyMixes(filteredPlaylists));
-		return filteredPlaylists;
-	}
-
-	async function clearPlaylist(playlist_id) {
-		const playlistItems = await spotifyApi.getPlaylistItems(playlist_id);
-		let items = [...playlistItems.items];
-		if (playlistItems.total > playlistItems.items.length) {
-			for (let offset = 100; offset < playlistItems.total; offset += 100) {
-				const moreItems = await spotifyApi.getPlaylistItems(
-					playlist_id,
-					offset
-				);
-				items = [...items, ...moreItems.items];
-			}
-		}
-
-		deleteTracks(playlist_id, items);
-	}
-
-	async function deleteTracks(playlist_id, items) {
-		let uris = [];
-		items.forEach(item => {
-			uris = [
-				...uris,
-				{
-					uri: item.track.uri,
-				},
-			];
-		});
-
-		while (uris.length > 0) {
-			let tracks = uris.splice(0, 100);
-			await spotifyApi.deleteItemsFromPlaylist(playlist_id, tracks);
+		try {
+			const playlists = await spotifyApi.getPlaylists();
+			return filterPlaylists(playlists);
+		} catch (e) {
+			console.log(e);
 		}
 	}
 
 	async function getTracks(playlists) {
-		let dailyTracks = [];
-		for (const playlist of playlists) {
-			if (playlist.name !== 'Микс дня #0') {
-				const { items } = await spotifyApi.getPlaylistItems(playlist.id);
-				dailyTracks = dailyTracks.concat(items);
+		try {
+			let dailyTracks = [];
+			for (const playlist of playlists) {
+				if (playlist.name !== 'Микс дня #0') {
+					const { items } = await spotifyApi.getPlaylistItems(playlist.id);
+					dailyTracks = dailyTracks.concat(items);
+				}
 			}
+			return dailyTracks;
+		} catch (e) {
+			console.log(e);
 		}
-		dispatch(setTracksFromDailies(dailyTracks));
-		return dailyTracks;
+	}
+
+	async function clearPlaylist(playlist_id) {
+		try {
+			const playlistItems = await spotifyApi.getPlaylistItems(playlist_id);
+			let items = [...playlistItems.items];
+			if (playlistItems.total > playlistItems.items.length) {
+				for (let offset = 100; offset < playlistItems.total; offset += 100) {
+					const moreItems = await spotifyApi.getPlaylistItems(
+						playlist_id,
+						offset
+					);
+					items = [...items, ...moreItems.items];
+				}
+			}
+
+			deleteTracks(playlist_id, items);
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	async function deleteTracks(playlist_id, items) {
+		let uris = [];
+		items.forEach(item => (uris = [...uris, { uri: item.track.uri }]));
+
+		try {
+			while (uris.length > 0) {
+				let tracks = uris.splice(0, 100);
+				await spotifyApi.deleteItemsFromPlaylist(playlist_id, tracks);
+			}
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	async function createPlaylist() {
-		const playlist = await spotifyApi.createPlaylist(user.id);
-		return playlist;
+		try {
+			const playlist = await spotifyApi.createPlaylist(user.id);
+			return playlist;
+		} catch (e) {
+			console.log(e);
+		}
 	}
 
 	async function fillPlaylist(playlist, tracks) {
-		let currentArr;
+		try {
+			let currentArr;
 
-		while (tracks.length > 0) {
-			let uris = [];
-			currentArr = tracks.splice(0, 100);
-			for (const track of currentArr) {
-				uris.push(track.track.uri);
+			while (tracks.length > 0) {
+				let uris = [];
+				currentArr = tracks.splice(0, 100);
+				for (const track of currentArr) {
+					uris.push(track.track.uri);
+				}
+				const res = await spotifyApi.addItemsToPlayList(
+					playlist.id,
+					shuffle(uris)
+				);
+				console.log(res);
 			}
-			const res = await spotifyApi.addItemsToPlayList(
-				playlist.id,
-				shuffle(uris)
-			);
-			console.log(res);
+		} catch (e) {
+			console.log(e);
 		}
 	}
 
@@ -138,28 +159,13 @@ export default function Playlists() {
 		);
 	}
 
-	async function handleGenerate() {
-		dispatch(setIsLoading(true));
-		if (checkIfTokenExpired()) auth.login();
-
-		const playlists = await getDailies();
-		const tracks = await getTracks(playlists);
-		const existingZeroMix = playlists.find(item => item.name === 'Микс дня #0');
-
-		if (existingZeroMix) {
-			await clearPlaylist(existingZeroMix.id);
-			fillPlaylist(existingZeroMix, tracks);
-		} else {
-			const newPlaylist = await createPlaylist();
-			fillPlaylist(newPlaylist, tracks);
-		}
-
-		dispatch(setIsLoading(false));
-	}
-
 	return (
 		<div className="playlists">
-			<h2 className="title">Время генерировать плейлист дня!</h2>
+			<h2 className="playlists__title title">
+				Время генерировать плейлист дня!
+			</h2>
+			{isLoading && <Spinner />}
+			{success && <p style={{color: '#B3261E', fontSize: '20px'}} >Плейлист создан!</p>}
 			<button
 				onClick={handleGenerate}
 				disabled={isLoading ? true : false}
@@ -169,7 +175,6 @@ export default function Playlists() {
 			>
 				Создать плейлист
 			</button>
-			{isLoading && <Spinner />}
 		</div>
 	);
 }

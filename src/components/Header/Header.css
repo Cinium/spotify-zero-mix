@@ -2,24 +2,26 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 10% 2rem;
-	margin: 1rem auto 2rem;
+	padding: 2rem 20% 2rem;
+	margin: 0 auto 2rem;
 	font-weight: 600;
 	font-size: 3vh;
-	box-shadow: 0 4px 10px -8px black;
+	/* box-shadow: inset 0 -3px 10px -5px white, 0 -2px 8px #49454F; */
 }
 
 .header__avatar {
 	width: 3rem;
 	height: 3rem;
-	background-color: #EFB8C8;
-	color: #31111D;
+	background-color: #efb8c8;
+	color: #31111d;
 	border-radius: 50%;
 	text-align: center;
 	font-weight: 500;
 	font-size: 2rem;
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	line-height: 2rem;
 }
 
 .header__user-pic {
@@ -27,4 +29,28 @@
 	height: 3rem;
 	border-radius: 50%;
 	margin-left: 50px;
+}
+
+@media screen and (max-width: 424px) {
+	.header {
+		height: 5rem;
+		padding: 0 10%;
+		margin: 0 auto 2rem;
+		font-size: 3vh;
+	}
+
+	.header__avatar {
+		width: 2.5rem;
+		height: 2.5rem;
+		font-weight: 500;
+		font-size: 1.5rem;
+		line-height: 1.5rem;
+	}
+
+	.header__user-pic {
+		width: 3rem;
+		height: 3rem;
+		border-radius: 50%;
+		margin-left: 50px;
+	}
 }

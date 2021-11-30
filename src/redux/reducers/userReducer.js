@@ -1,7 +1,7 @@
 import { SET_CURRENT_USER } from "../types";
 
 let user = JSON.parse(localStorage.getItem('user'));
-const initialState = user ? user : {};
+const initialState = user ? { user } : {};
 
 function userReducer(state = initialState, action) {
 	switch(action.type) {

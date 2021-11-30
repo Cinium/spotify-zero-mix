@@ -7,6 +7,7 @@ import {
 
 class Auth {
 	login() {
+		console.log(REDIRECT_URI)
 		window.location = `${AUTHORIZE_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=${SCOPES_STRING}&response_type=token&show_dialog=true`;
 	}
 

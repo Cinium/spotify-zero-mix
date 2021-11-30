@@ -3,19 +3,12 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App.js';
 import reportWebVitals from './reportWebVitals';
-
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { Provider } from 'react-redux';
-
-import rootReducer from './redux/reducers/rootReducer';
 import { HashRouter } from 'react-router-dom';
+import store from './redux/store';
+import { colors } from './utils/constants';
 
-const store = createStore(
-	rootReducer,
-	composeWithDevTools(applyMiddleware(thunk))
-);
+document.querySelector('body').style.backgroundColor = colors.purple.neutral[99]
 
 ReactDOM.render(
 	<Provider store={store}>
