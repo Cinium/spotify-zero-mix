@@ -8,7 +8,8 @@ import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
 import { colors } from './utils/constants';
 
-document.querySelector('body').style.backgroundColor = colors.purple.neutral[99]
+document.querySelector('body').style.backgroundColor =
+	colors.purple.neutral[99];
 
 ReactDOM.render(
 	<Provider store={store}>

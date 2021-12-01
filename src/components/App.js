@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { fetchUserInfo } from '../redux/actions/userActions';
 import { colors, NON_REDIR_HASHES } from '../utils/constants';
 import { setIsMobile } from '../redux/actions/appActions';
+import './MobileNav/MobileNav.css'
 import MobileNav from './MobileNav/MobileNav';
 
 function App() {
@@ -21,11 +22,14 @@ function App() {
 
 	useEffect(() => {
 		checkIfMobile();
-		changeMetaThemeColor()
+		changeMetaThemeColor();
 
 		window.addEventListener('resize', checkIfMobile);
 
-		if (!NON_REDIR_HASHES.some(hash => window.location.hash === hash)) {
+		if (
+			!NON_REDIR_HASHES.some(hash => window.location.hash === hash) &&
+			window.location.hash !== ''
+		) {
 			auth.getTokenDataFromUrl(window.location.hash);
 			dispatch(fetchUserInfo());
 			navigate('/playlists');
@@ -33,9 +37,7 @@ function App() {
 	}, []);
 
 	function changeMetaThemeColor() {
-		const metaLightColor = document.querySelector(
-			'meta[name="theme-color"]'
-		);
+		const metaLightColor = document.querySelector('meta[name="theme-color"]');
 		// metaLightColor.setAttribute('content', '#EADDFF');
 		metaLightColor.setAttribute('content', colors.purple.secondary[90]);
 	}
@@ -52,6 +54,7 @@ function App() {
 		<div className="App">
 			<Header />
 			{!isMobile && <Navbar />}
+
 			<Routes>
 				<Route path="/" element={<Login />} />
 				<Route path="playlists" element={<Playlists />} />
