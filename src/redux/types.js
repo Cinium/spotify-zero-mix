@@ -7,3 +7,4 @@ export const TRACKS = 'TRACKS';
 export const NEW_DAILY_MIX = 'NEW_DAILY_MIX';
 export const IS_MOBILE = 'IS_MOBILE';
 export const SUCCESS_MESSAGE = 'SUCCESS_MESSAGE';
+export const CURRENT_THEME = 'CURRENT_THEME';

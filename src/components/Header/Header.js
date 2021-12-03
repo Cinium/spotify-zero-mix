@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { colors } from '../../utils/constants';
+import { colorTheme } from '../../utils/colors';
 import Avatar from '../Avatar/Avatar';
 import './Header.css';
 
@@ -7,11 +7,12 @@ function Header() {
 	const user = useSelector(state => state.user.user);
 
 	return (
-		<header className="header" style={{ backgroundColor: colors.purple.secondary[95] }}>
+		<header
+			className="header"
+			style={{ backgroundColor: colorTheme.secondary[95] }}
+		>
 			Spotify Zero Mix
-			{
-				user?.images && <Avatar />
-			}
+			{user?.images && <Avatar />}
 		</header>
 	);
 }

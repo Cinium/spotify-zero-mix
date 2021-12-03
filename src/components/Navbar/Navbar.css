@@ -1,15 +1,22 @@
 .navbar {
 	list-style: none;
-	padding: 0;
+	padding: 1.5rem;
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	margin: 1rem auto;
-	width: 90vw;
+	margin: 0 auto 2rem;
+	max-width: 60vw;
+	background-color: #f6edff;
+	border-bottom-left-radius: 33px;
+	border-bottom-right-radius: 33px;
+	box-shadow: black 0px 5px 6px -7px, inset black 0 2px 5px -5px;
+
+	overflow: hidden;
+	position: relative;
+	
 }
 
 .navbar__item {
-	width: 6rem;
+	width: 100%;
 }
 
 .navbar__link {
@@ -17,11 +24,12 @@
 	text-decoration: none;
 	border-radius: 30px;
 	transition: all .3s;
-	padding: 3px 0 6px;
+	padding: 6px 0 6px;
+	white-space: nowrap;
 }
 
 .navbar__link:hover {
-	padding: 3px 12px 6px;
+	padding: 6px 12px 6px;
 	background-color: #EADDFF;
 }
 
@@ -29,7 +37,7 @@
 	transition: background-color .4s;
 	font-weight: 500;
 	background-color: #D0BCFF;
-	padding: 3px 12px 6px;
+	padding: 6px 12px 6px;
 }
 
 .navbar__link_active:hover {

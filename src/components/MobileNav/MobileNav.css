@@ -52,16 +52,4 @@
 	margin: 0 0 5px;
 }
 
-span.ripple {
-	position: absolute;
-	border-radius: 100%;
-	transform: scale(0);
-	animation: ripple .5s linear;
-  }
-  
-  @keyframes ripple {
-	to {
-	  transform: scale(4);
-	  opacity: 0;
-	}
-  }
+

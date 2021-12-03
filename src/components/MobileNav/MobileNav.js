@@ -1,123 +1,53 @@
 import { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { colors } from '../../utils/constants';
+import { useLocation } from 'react-router';
+import { colorTheme } from '../../utils/colors';
+import createRipple from '../../utils/ripple';
 import './MobileNav.css';
 
-function MobileNav() {
+function MobileNav({ links }) {
+	const location = useLocation();
+
 	useEffect(() => {
-		const spans = [
-			...document.querySelector('.mobilenav').querySelectorAll('.material-icons'),
-		];
+		const activeLink = document.querySelector('.mobilenav__link.active');
+		const links = [...document.querySelectorAll('.mobilenav__link')].filter(
+			link => link !== activeLink
+		);
 
-		switch (window.location.hash) {
-			case '#/about':
-				spans.forEach(span => {
-					span.style.backgroundColor =
-						span.textContent === 'info'
-							? colors.purple.secondary[90]
-							: 'transparent';
-				});
-				break;
-			case '':
-			case '#/':
-				spans.forEach(span => {
-					span.style.backgroundColor =
-						span.textContent === 'login'
-							? colors.purple.secondary[90]
-							: 'transparent';
-				});
-				break;
-			case '#/playlists':
-				spans.forEach(span => {
-					span.style.backgroundColor =
-						span.textContent === 'add_circle'
-							? colors.purple.secondary[90]
-							: 'transparent';
-				});
-				break;
-			default:
-				break;
-		}
-	});
+		activeLink.querySelector('.material-icons').style.backgroundColor =
+			colorTheme.secondary[90];
 
-	function createRipple(event) {
-		const button = event.currentTarget;
-
-		const circle = document.createElement('span');
-		const diameter = Math.max(button.clientWidth, button.clientHeight);
-		const radius = diameter / 2;
-
-		// circle.style.width = circle.style.height = `${diameter}px`;
-		// circle.style.left = `${event.clientX - button.offsetLeft - radius}px`;
-		// circle.style.top = `${event.clientY - button.offsetTop - radius}px`;
-
-		circle.style.width = circle.style.height = `${diameter}px`;
-		circle.style.left = `${event.clientX - button.getBoundingClientRect().left - radius}px`;
-		circle.style.top = `${event.clientY - button.getBoundingClientRect().top - radius}px`;
-		circle.style.backgroundColor = colors.purple.primary[80]
-
-		circle.classList.add('ripple');
-
-		const ripple = button.getElementsByClassName('ripple')[0];
-
-		if (ripple) {
-			ripple.remove();
-		}
-
-		button.append(circle);
-	}
+		links.forEach(
+			link =>
+				(link.querySelector('.material-icons').style.backgroundColor =
+					'transparent')
+		);
+	}, [location.pathname]);
 
 	return (
-			<ul
+		<ul
 			className="mobilenav"
-				style={{ backgroundColor: colors.purple.secondary[95] }}
-			>
+			style={{ backgroundColor: colorTheme.secondary[95] }}
+		>
+			{links.map((link, i) => (
 				<NavLink
-					to="/about"
+					to={link.to}
+					key={i}
 					className={({ isActive }) =>
 						'mobilenav__link' + (isActive ? ' active' : '')
 					}
 					style={({ isActive }) => ({
 						color: isActive
-							? colors.purple.secondary[10]
-							: colors.purple.neutral[30],
+							? colorTheme.secondary[10]
+							: colorTheme.neutral[30],
 					})}
-					onClick={createRipple}
+					onClick={e => createRipple(e, colorTheme.tertiary[80])}
 				>
-					<span className="material-icons">info</span>
-					<label className="mobilenav__label">Nothing</label>
+					<span className="material-icons">{link.span}</span>
+					<label className="mobilenav__label">{link.name}</label>
 				</NavLink>
-				<NavLink
-					to="/"
-					className={({ isActive }) =>
-						'mobilenav__link' + (isActive ? ' active' : '')
-					}
-					style={({ isActive }) => ({
-						color: isActive
-							? colors.purple.secondary[10]
-							: colors.purple.neutral[30],
-					})}
-					onClick={createRipple}
-				>
-					<span className="material-icons">login</span>
-					<label className="mobilenav__label">Login</label>
-				</NavLink>
-				<NavLink
-					to="/playlists"
-					className={({ isActive }) =>
-						'mobilenav__link' + (isActive ? ' active' : '')
-					}
-					style={({ isActive }) => ({
-						color: isActive
-							? colors.purple.secondary[10]
-							: colors.purple.neutral[30],
-					})}
-					onClick={createRipple}
-				>
-					<span className="material-icons">add_circle</span>
-					<label className="mobilenav__label">Generate</label>
-				</NavLink>
-			</ul>
+			))}
+		</ul>
 	);
 }
 

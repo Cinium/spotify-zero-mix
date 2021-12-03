@@ -1,7 +1,15 @@
-import { IS_LOADING, IS_MOBILE, SUCCESS_MESSAGE } from '../types';
+import {
+	CURRENT_THEME,
+	IS_LOADING,
+	IS_MOBILE,
+	SUCCESS_MESSAGE,
+} from '../types';
+
+const theme = JSON.parse(localStorage.getItem('theme'));
 
 const initialState = {
 	isLoading: false,
+	theme: theme ? theme : 'purple',
 };
 
 function appReducer(state = initialState, action) {
@@ -19,8 +27,13 @@ function appReducer(state = initialState, action) {
 		case SUCCESS_MESSAGE:
 			return {
 				...state,
-				successMessage: action.payload
-			}
+				successMessage: action.payload,
+			};
+		case CURRENT_THEME:
+			return {
+				...state,
+				theme: action.payload,
+			};
 		default:
 			return state;
 	}

@@ -8,17 +8,17 @@ import Header from './Header/Header';
 import { useEffect } from 'react';
 import auth from '../auth/auth';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { fetchUserInfo } from '../redux/actions/userActions';
-import { colors, NON_REDIR_HASHES } from '../utils/constants';
+import { NON_REDIR_HASHES, ROUTER_LINKS } from '../utils/constants';
+import { colorTheme } from '../utils/colors';
 import { setIsMobile } from '../redux/actions/appActions';
-import './MobileNav/MobileNav.css'
+import './MobileNav/MobileNav.css';
 import MobileNav from './MobileNav/MobileNav';
 
 function App() {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const isMobile = useSelector(state => state.app.isMobile);
+	const user = useSelector(state => state.user);
 
 	useEffect(() => {
 		checkIfMobile();
@@ -32,14 +32,12 @@ function App() {
 		) {
 			auth.getTokenDataFromUrl(window.location.hash);
 			dispatch(fetchUserInfo());
-			navigate('/playlists');
 		}
 	}, []);
 
 	function changeMetaThemeColor() {
 		const metaLightColor = document.querySelector('meta[name="theme-color"]');
-		// metaLightColor.setAttribute('content', '#EADDFF');
-		metaLightColor.setAttribute('content', colors.purple.secondary[90]);
+		metaLightColor.setAttribute('content', colorTheme.secondary[90]);
 	}
 
 	function checkIfMobile() {
@@ -53,13 +51,20 @@ function App() {
 	return (
 		<div className="App">
 			<Header />
-			{!isMobile && <Navbar />}
+			{!isMobile && <Navbar links={ROUTER_LINKS} />}
 
 			<Routes>
-				<Route path="/" element={<Login />} />
-				<Route path="playlists" element={<Playlists />} />
+				<Route
+					path="/"
+					element={
+						user && auth.checkIfTokenExpired() ? <Login /> : <Playlists />
+					}
+				/>
+				{/* <Route path="settings" element={<Playlists />} />
+				<Route path="profile" element={<Playlists />} /> */}
 			</Routes>
-			{isMobile && <MobileNav />}
+
+			{isMobile && <MobileNav links={ROUTER_LINKS} />}
 		</div>
 	);
 }

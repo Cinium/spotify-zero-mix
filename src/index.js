@@ -6,10 +6,10 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
-import { colors } from './utils/constants';
+import { colorTheme } from './utils/colors';
 
-document.querySelector('body').style.backgroundColor =
-	colors.purple.neutral[99];
+document.querySelector('body').style.backgroundColor = colorTheme.neutral[99];
+document.querySelector('body').style.color = colorTheme.primary[10];
 
 ReactDOM.render(
 	<Provider store={store}>

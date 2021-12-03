@@ -1,4 +1,9 @@
-import { IS_LOADING, IS_MOBILE, SUCCESS_MESSAGE } from '../types';
+import {
+	CURRENT_THEME,
+	IS_LOADING,
+	IS_MOBILE,
+	SUCCESS_MESSAGE,
+} from '../types';
 
 export function setIsLoading(boolean) {
 	return {
@@ -17,6 +22,13 @@ export function setIsMobile(boolean) {
 export function setSuccessMessage(boolean) {
 	return {
 		type: SUCCESS_MESSAGE,
-		payload: boolean
-	}
+		payload: boolean,
+	};
+}
+
+export function setCurrentTheme(theme) {
+	return {
+		type: CURRENT_THEME,
+		payload: theme,
+	};
 }

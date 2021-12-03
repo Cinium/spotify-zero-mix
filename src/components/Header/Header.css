@@ -2,8 +2,8 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 2rem 20% 2rem;
-	margin: 0 auto 2rem;
+	padding: 1.5rem 20%;
+	margin: 0 auto 0;
 	font-weight: 600;
 	font-size: 3vh;
 	/* box-shadow: inset 0 -3px 10px -5px white, 0 -2px 8px #49454F; */

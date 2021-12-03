@@ -9,9 +9,6 @@ body {
 		'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background: #f6edff;
-	/* background-color: #FFFBFE; */
-	color: #21005d;
 	justify-content: center;
 	text-align: center;
 	height: 100%;
@@ -47,7 +44,6 @@ body {
 	border: none;
 	border-radius: 30px;
 	padding: 10px 20px;
-	background-color: #6750a4;
 	color: white;
 	font-weight: 500;
 	font-size: 20px;
@@ -71,7 +67,16 @@ body {
 	opacity: 1;
 }
 
-code {
-	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-		monospace;
+span.ripple {
+	position: absolute;
+	border-radius: 100%;
+	transform: scale(0);
+	animation: ripple 0.5s ease-in;
+}
+
+@keyframes ripple {
+	to {
+		transform: scale(4);
+		opacity: 0;
+	}
 }
